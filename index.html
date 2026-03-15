@@ -69,9 +69,8 @@ body{background:var(--bg);color:var(--text);font-family:var(--disp);height:100vh
 .b-time{font-size:10px;font-family:var(--mono);opacity:.5}
 .b-enc{font-size:10px;font-family:var(--mono);color:var(--acc2);opacity:.75}
 .b-enc.m{color:rgba(255,255,255,.6)}
-
-/* ── File bubble ── */
-.file-card{display:flex;align-items:center;gap:10px;background:rgba(0,0,0,.18);border-radius:10px;padding:10px 12px;border:0.5px solid rgba(255,255,255,.07);margin-bottom:4px}
+/* File bubble */
+.file-card{display:flex;align-items:center;gap:10px;background:rgba(0,0,0,.18);border-radius:10px;padding:10px 12px;border:0.5px solid rgba(255,255,255,.07);margin-bottom:6px}
 .f-icon{font-size:26px;flex-shrink:0}
 .f-col{flex:1;min-width:0}
 .f-name{font-size:12px;font-weight:600;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
@@ -82,9 +81,8 @@ body{background:var(--bg);color:var(--text);font-family:var(--disp);height:100vh
 .dl-btn.m{background:rgba(255,255,255,.14);border-color:rgba(255,255,255,.25);color:#fff}
 .dl-btn.m:hover:not(:disabled){background:rgba(255,255,255,.25)}
 .dl-btn:disabled{opacity:.35;cursor:not-allowed}
-.prog-wrap{height:3px;background:rgba(255,255,255,.08);border-radius:2px;overflow:hidden;margin-top:6px}
-.prog-bar{height:100%;background:linear-gradient(90deg,var(--acc),var(--acc2));border-radius:2px;transition:width .25s;width:0}
-
+.prog-wrap{height:3px;background:rgba(255,255,255,.08);border-radius:2px;overflow:hidden;margin-top:4px}
+.prog-bar{height:100%;background:linear-gradient(90deg,var(--acc),var(--acc2));border-radius:2px;transition:width .2s;width:0}
 /* Drag overlay */
 .drop-ov{position:fixed;inset:0;background:rgba(124,92,252,.15);border:3px dashed rgba(124,92,252,.6);z-index:500;display:none;align-items:center;justify-content:center;flex-direction:column;gap:12px;backdrop-filter:blur(3px);pointer-events:none}
 .drop-ov.show{display:flex}
@@ -92,7 +90,6 @@ body{background:var(--bg);color:var(--text);font-family:var(--disp);height:100vh
 .drop-ov .dt{font-size:18px;font-weight:700;color:#fff}
 .drop-ov .ds{font-size:12px;font-family:var(--mono);color:rgba(255,255,255,.6)}
 @keyframes float{0%,100%{transform:translateY(0)}50%{transform:translateY(-8px)}}
-
 .sys-msg{text-align:center;font-size:11px;font-family:var(--mono);color:var(--muted);padding:5px 14px;background:rgba(255,255,255,.03);border-radius:20px;align-self:center;border:0.5px solid var(--border)}
 .typing-row{display:flex;align-items:center;gap:8px;font-size:11px;font-family:var(--mono);color:var(--muted)}
 .td span{display:inline-block;width:5px;height:5px;border-radius:50%;background:var(--muted);margin:0 2px;animation:tda .9s ease-in-out infinite}
@@ -110,7 +107,7 @@ body{background:var(--bg);color:var(--text);font-family:var(--disp);height:100vh
 .send-btn:active{transform:scale(.95)}
 .att-btn{width:44px;height:44px;border-radius:12px;background:var(--s3);border:0.5px solid var(--border);cursor:pointer;display:flex;align-items:center;justify-content:center;font-size:16px;flex-shrink:0;color:var(--muted);transition:all .2s;position:relative;overflow:hidden}
 .att-btn:hover{border-color:var(--acc);color:var(--acc)}
-.att-prog{position:absolute;bottom:0;left:0;right:0;height:3px;background:var(--acc2);width:0;transition:width .25s;border-radius:0 0 12px 12px}
+.att-prog{position:absolute;bottom:0;left:0;right:0;height:3px;background:var(--acc2);width:0;transition:width .2s;border-radius:0 0 12px 12px}
 .info-grid{display:grid;grid-template-columns:1fr 1fr;gap:8px;padding:10px 4px}
 .i-chip{background:var(--s2);border:0.5px solid var(--border);border-radius:10px;padding:10px;text-align:center}
 .i-val{font-size:13px;font-weight:700;font-family:var(--mono);color:var(--acc2)}
@@ -146,7 +143,6 @@ body{background:var(--bg);color:var(--text);font-family:var(--disp);height:100vh
 </style>
 </head>
 <body>
-
 <div class="drop-ov" id="drop-ov">
   <div class="di">🔒</div>
   <div class="dt">أفلت الملف هنا</div>
@@ -200,12 +196,12 @@ body{background:var(--bg);color:var(--text);font-family:var(--disp);height:100vh
     <div class="panel" id="panel-info" style="display:none">
       <div class="info-grid">
         <div class="i-chip"><div class="i-val">AES-256</div><div class="i-lbl">خوارزمية</div></div>
-        <div class="i-chip"><div class="i-val">GCM</div><div class="i-lbl">وضع التشفير</div></div>
-        <div class="i-chip"><div class="i-val">PBKDF2</div><div class="i-lbl">اشتقاق مفتاح</div></div>
+        <div class="i-chip"><div class="i-val">GCM</div><div class="i-lbl">وضع</div></div>
+        <div class="i-chip"><div class="i-val">PBKDF2</div><div class="i-lbl">مفتاح</div></div>
         <div class="i-chip"><div class="i-val">60KB</div><div class="i-lbl">حجم الجزء</div></div>
         <div class="i-chip" style="grid-column:1/-1"><div class="i-val" style="font-size:11px;word-break:break-all" id="fp-val">—</div><div class="i-lbl">بصمة مفتاح الغرفة</div></div>
       </div>
-      <div class="info-note">// النصوص والملفات مشفرة بنفس المفتاح<br>// كل جزء له IV عشوائي مستقل<br>// الملفات تُقسَّم وتُشفَّر قبل الإرسال<br>// حتى مشغّل الخادم لا يرى أي شيء</div>
+      <div class="info-note">// النصوص والملفات مشفرة بنفس المفتاح<br>// كل جزء له IV عشوائي مستقل<br>// الخادم لا يرى أي بيانات واضحة</div>
     </div>
     <div class="identity-box">
       <div class="id-row">
@@ -216,7 +212,6 @@ body{background:var(--bg);color:var(--text);font-family:var(--disp);height:100vh
       </div>
     </div>
   </div>
-
   <div class="main">
     <div id="no-room" style="flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;color:var(--muted);font-family:var(--mono);font-size:12px;gap:8px">
       <span style="font-size:32px">💬</span>اختر غرفة أو أنشئ واحدة
@@ -257,15 +252,13 @@ body{background:var(--bg);color:var(--text);font-family:var(--disp);height:100vh
 <input type="file" id="file-in" style="display:none" onchange="onFileSelect(event)">
 
 <script>
-// ══════════════════════════════════════
-// STATE
-// ══════════════════════════════════════
+// ══════ STATE ══════
 const S={ws:null,name:'',pass:'',currentRoom:null,rooms:{},keys:{},fps:{},typingTimer:null,reconnTimer:null,wsUrl:'ws://localhost:3001'};
-const fileBuffers=new Map(); // fileId → {chunks[], meta, received, blob?}
 
-// ══════════════════════════════════════
-// CRYPTO
-// ══════════════════════════════════════
+// fileBuffers: fileId → { meta, chunks: Map<index,ArrayBuffer>, received, total, blob? }
+const FB = new Map();
+
+// ══════ CRYPTO ══════
 async function deriveKey(pass,room){
   const salt=new TextEncoder().encode(('VAULT-'+room).padEnd(16,'x').slice(0,16));
   const km=await crypto.subtle.importKey('raw',new TextEncoder().encode(pass),'PBKDF2',false,['deriveKey']);
@@ -275,39 +268,33 @@ async function deriveKey(pass,room){
   const fp=Array.from(new Uint8Array(hash)).slice(0,8).map(b=>b.toString(16).padStart(2,'0')).join(':');
   return{key,fp};
 }
-
 async function encBuf(ab,room){
-  const k=S.keys[room]; if(!k) throw 0;
+  const k=S.keys[room];if(!k)throw new Error('no key');
   const iv=crypto.getRandomValues(new Uint8Array(12));
   const ct=await crypto.subtle.encrypt({name:'AES-GCM',iv},k,ab);
-  const out=new Uint8Array(12+ct.byteLength); out.set(iv); out.set(new Uint8Array(ct),12);
-  // convert to base64
-  let bin=''; const u8=out; for(let i=0;i<u8.length;i++) bin+=String.fromCharCode(u8[i]);
+  const out=new Uint8Array(12+ct.byteLength);
+  out.set(iv);out.set(new Uint8Array(ct),12);
+  let bin='';for(let i=0;i<out.length;i++)bin+=String.fromCharCode(out[i]);
   return btoa(bin);
 }
-
 async function decBuf(b64,room){
-  const k=S.keys[room]; if(!k) throw 0;
-  const bin=atob(b64); const u8=new Uint8Array(bin.length);
-  for(let i=0;i<bin.length;i++) u8[i]=bin.charCodeAt(i);
+  const k=S.keys[room];if(!k)throw new Error('no key');
+  const bin=atob(b64);const u8=new Uint8Array(bin.length);
+  for(let i=0;i<bin.length;i++)u8[i]=bin.charCodeAt(i);
   return await crypto.subtle.decrypt({name:'AES-GCM',iv:u8.slice(0,12)},k,u8.slice(12));
 }
-
-async function encText(text,room){ return encBuf(new TextEncoder().encode(text),room); }
-async function decText(b64,room){
-  try{ return new TextDecoder().decode(await decBuf(b64,room)); }
-  catch{ return'🔒 [كلمة مرور مختلفة]'; }
+async function encText(t,r){return encBuf(new TextEncoder().encode(t),r);}
+async function decText(b64,r){
+  try{return new TextDecoder().decode(await decBuf(b64,r));}
+  catch{return'🔒 [كلمة مرور مختلفة]';}
 }
 
-// ══════════════════════════════════════
-// FILE SEND — split into 60KB chunks
-// ══════════════════════════════════════
+// ══════ FILE SEND ══════
 const CHUNK=60*1024;
-
 async function sendEncFile(file){
   if(!S.currentRoom||!S.ws||S.ws.readyState!==1){toast('⚠ غير متصل');return;}
   if(file.size>50*1024*1024){toast('⚠ الحجم الأقصى 50 MB');return;}
-  const fileId=(typeof crypto.randomUUID==='function')?crypto.randomUUID():Math.random().toString(36).slice(2)+Date.now().toString(36);
+  const fileId=crypto.randomUUID?crypto.randomUUID():(Math.random().toString(36).slice(2)+Date.now().toString(36));
   const ab=await file.arrayBuffer();
   const total=Math.max(1,Math.ceil(ab.byteLength/CHUNK));
   const now=new Date();
@@ -317,54 +304,72 @@ async function sendEncFile(file){
   for(let i=0;i<total;i++){
     const slice=ab.slice(i*CHUNK,(i+1)*CHUNK);
     const enc=await encBuf(slice,S.currentRoom);
-    send({type:'file',fileId,name:file.name,size:file.size,mime:file.type||'application/octet-stream',totalChunks:total,chunkIndex:i,enc,time,ts:now.getTime()});
-    if(prog) prog.style.width=Math.round(((i+1)/total)*100)+'%';
-    if(i%5===0) await new Promise(r=>setTimeout(r,0)); // yield to UI
+    wsSend({type:'file',fileId,name:file.name,size:file.size,
+      mime:file.type||'application/octet-stream',
+      totalChunks:total,chunkIndex:i,enc,time,ts:now.getTime()});
+    if(prog)prog.style.width=Math.round(((i+1)/total)*100)+'%';
+    if(i%4===0)await new Promise(r=>setTimeout(r,0));
   }
-  setTimeout(()=>{if(prog)prog.style.width='0';},900);
-  toast('✅ تم إرسال "'+file.name+'" مشفراً');
+  setTimeout(()=>{if(prog)prog.style.width='0';},800);
+  toast('✅ تم إرسال "'+file.name+'" بنجاح');
 }
 
-// ══════════════════════════════════════
-// FILE RECEIVE
-// ══════════════════════════════════════
-async function onFileChunk(msg){
+// ══════ FILE RECEIVE ══════
+// Process a single file chunk — creates/updates FB entry and renders bubble
+async function processChunk(msg){
   const{fileId,name,size,mime,totalChunks,chunkIndex,enc,sender,time}=msg;
-  if(!fileBuffers.has(fileId)){
-    fileBuffers.set(fileId,{chunks:new Array(totalChunks).fill(null),meta:{name,size,mime,totalChunks,sender,time},received:0});
-    // render placeholder bubble on first chunk arrival (not from self)
-    const isMine=sender===S.name;
-    renderFileBubble(fileId,{name,size,mime,totalChunks,sender,time},isMine,false);
+  const total=Number(totalChunks);
+  const idx=Number(chunkIndex);
+
+  // Init buffer if new file
+  if(!FB.has(fileId)){
+    FB.set(fileId,{
+      meta:{name,size:Number(size),mime,total,sender,time},
+      chunks:new Map(), received:0, blob:null
+    });
+    // Render bubble placeholder immediately (for all users including sender)
+    renderFileBubble(fileId,{name,size:Number(size),mime,total,sender,time},sender===S.name,false);
     scrollBot();
   }
-  const fb=fileBuffers.get(fileId);
-  if(fb.chunks[chunkIndex]===null){
-    try{fb.chunks[chunkIndex]=await decBuf(enc,S.currentRoom);}
-    catch{fb.chunks[chunkIndex]=new ArrayBuffer(0);}
-    fb.received++;
-    // update progress bar
-    const pb=document.getElementById('pb-'+fileId);
-    if(pb) pb.style.width=Math.round((fb.received/totalChunks)*100)+'%';
+
+  const fb=FB.get(fileId);
+  // Skip duplicate chunks
+  if(fb.chunks.has(idx))return;
+
+  // Decrypt chunk
+  try{
+    const decAb=await decBuf(enc,S.currentRoom);
+    fb.chunks.set(idx,decAb);
+  }catch{
+    fb.chunks.set(idx,new ArrayBuffer(0));
   }
-  if(fb.received===totalChunks){
-    // merge all chunks
-    const totalBytes=fb.chunks.reduce((a,c)=>a+(c&&c.byteLength||0),0);
-    const merged=new Uint8Array(totalBytes); let off=0;
-    for(const c of fb.chunks){if(c&&c.byteLength){merged.set(new Uint8Array(c),off);off+=c.byteLength;}}
+  fb.received++;
+
+  // Update progress bar
+  const pb=document.getElementById('pb-'+fileId);
+  if(pb)pb.style.width=Math.round((fb.received/total)*100)+'%';
+
+  // All chunks received → merge and enable download
+  if(fb.received>=total){
+    const totalBytes=Array.from(fb.chunks.values()).reduce((a,c)=>a+(c.byteLength||0),0);
+    const merged=new Uint8Array(totalBytes);
+    let off=0;
+    for(let i=0;i<total;i++){
+      const c=fb.chunks.get(i);
+      if(c&&c.byteLength){merged.set(new Uint8Array(c),off);off+=c.byteLength;}
+    }
     fb.blob=new Blob([merged],{type:fb.meta.mime});
-    // enable download button
+
     const dlb=document.getElementById('dlb-'+fileId);
     if(dlb){dlb.disabled=false;dlb.textContent='⬇ تحميل';}
     const pw=document.getElementById('pw-'+fileId);
-    if(pw) pw.style.display='none';
-    appendSys('✅ تم استقبال "'+name+'" بأمان · جاهز للتحميل');
+    if(pw)pw.style.display='none';
     scrollBot();
   }
 }
 
 function renderFileBubble(fileId,meta,isMine,ready){
-  // avoid duplicate
-  if(document.getElementById('frow-'+fileId)) return;
+  if(document.getElementById('frow-'+fileId))return; // avoid duplicate
   const el=document.getElementById('msgs');
   const row=document.createElement('div');
   row.className='msg-row'+(isMine?' mine':'');
@@ -372,37 +377,39 @@ function renderFileBubble(fileId,meta,isMine,ready){
   const icon=fileIcon(meta.name,meta.mime);
   const sz=meta.size<1048576?(meta.size/1024).toFixed(1)+' KB':(meta.size/1048576).toFixed(2)+' MB';
   const mc=isMine?'m':'';
-  row.innerHTML=`
-    <div class="m-av">${emojiFor(meta.sender||'?')}</div>
-    <div class="bw">
-      ${!isMine?`<div class="b-sender">${esc(meta.sender)}</div>`:''}
-      <div class="bubble ${isMine?'mine':'theirs'}">
-        <div class="file-card">
-          <div class="f-icon">${icon}</div>
-          <div class="f-col">
-            <div class="f-name" title="${esc(meta.name)}">${esc(meta.name)}</div>
-            <div class="f-meta">${sz} · ${meta.totalChunks} جزء مشفر</div>
-            <div class="f-badge">🔒 AES-256-GCM</div>
-          </div>
-          <button class="dl-btn ${mc}" id="dlb-${fileId}" ${ready?'':'disabled'}
-            onclick="dlFile('${fileId}','${esc(meta.name).replace(/'/g,'')}')">
-            ${ready?'⬇ تحميل':'⏳ ...'}
-          </button>
-        </div>
-        <div id="pw-${fileId}" ${ready?'style="display:none"':''}>
-          <div class="prog-wrap"><div class="prog-bar" id="pb-${fileId}"></div></div>
-        </div>
-        <div class="b-foot">
-          <span class="b-time">${meta.time||''}</span>
-          <span class="b-enc ${mc}">🔒 E2E</span>
-        </div>
-      </div>
-    </div>`;
+  // Safely encode filename for use in onclick
+  const safeName=meta.name.replace(/\\/g,'').replace(/'/g,'').replace(/"/g,'');
+  row.innerHTML=
+    '<div class="m-av">'+emojiFor(meta.sender||'?')+'</div>'+
+    '<div class="bw">'+
+      (!isMine?'<div class="b-sender">'+esc(meta.sender)+'</div>':'')+
+      '<div class="bubble '+(isMine?'mine':'theirs')+'">'+
+        '<div class="file-card">'+
+          '<div class="f-icon">'+icon+'</div>'+
+          '<div class="f-col">'+
+            '<div class="f-name">'+esc(meta.name)+'</div>'+
+            '<div class="f-meta">'+sz+' · '+meta.total+' جزء مشفر</div>'+
+            '<div class="f-badge">🔒 AES-256-GCM</div>'+
+          '</div>'+
+          '<button class="dl-btn '+mc+'" id="dlb-'+fileId+'" '+(ready?'':'disabled')+
+            ' onclick="dlFile(\''+fileId+'\',\''+safeName+'\')">'+
+            (ready?'⬇ تحميل':'⏳ ...')+
+          '</button>'+
+        '</div>'+
+        '<div id="pw-'+fileId+'"'+(ready?' style="display:none"':'')+'>'+
+          '<div class="prog-wrap"><div class="prog-bar" id="pb-'+fileId+'"></div></div>'+
+        '</div>'+
+        '<div class="b-foot">'+
+          '<span class="b-time">'+(meta.time||'')+'</span>'+
+          '<span class="b-enc '+mc+'">🔒 E2E</span>'+
+        '</div>'+
+      '</div>'+
+    '</div>';
   el.appendChild(row);
 }
 
 function dlFile(fileId,name){
-  const fb=fileBuffers.get(fileId);
+  const fb=FB.get(fileId);
   if(!fb||!fb.blob){toast('⚠ الملف غير جاهز بعد');return;}
   const url=URL.createObjectURL(fb.blob);
   const a=document.createElement('a');a.href=url;a.download=name;
@@ -412,20 +419,18 @@ function dlFile(fileId,name){
 
 function fileIcon(name,mime){
   const e=(name||'').split('.').pop().toLowerCase();
-  if(['jpg','jpeg','png','gif','webp','svg','bmp','ico'].includes(e)) return'🖼';
-  if(['mp4','mkv','avi','mov','webm','flv'].includes(e)) return'🎬';
-  if(['mp3','wav','ogg','flac','aac','m4a'].includes(e)) return'🎵';
-  if(e==='pdf') return'📄';
-  if(['doc','docx'].includes(e)) return'📝';
-  if(['xls','xlsx','csv'].includes(e)) return'📊';
-  if(['zip','rar','7z','tar','gz','bz2'].includes(e)) return'🗜';
-  if(['js','ts','py','cpp','c','java','html','css','json','go','rs'].includes(e)) return'💻';
+  if(['jpg','jpeg','png','gif','webp','svg','bmp'].includes(e))return'🖼';
+  if(['mp4','mkv','avi','mov','webm'].includes(e))return'🎬';
+  if(['mp3','wav','ogg','flac','aac'].includes(e))return'🎵';
+  if(e==='pdf')return'📄';
+  if(['doc','docx'].includes(e))return'📝';
+  if(['xls','xlsx','csv'].includes(e))return'📊';
+  if(['zip','rar','7z','tar','gz'].includes(e))return'🗜';
+  if(['js','ts','py','cpp','c','java','html','css','json'].includes(e))return'💻';
   return'📎';
 }
 
-// ══════════════════════════════════════
-// WEBSOCKET
-// ══════════════════════════════════════
+// ══════ WEBSOCKET ══════
 function connect(url){
   setStatus('conn');
   try{S.ws=new WebSocket(url);}catch{setStatus('off');return;}
@@ -435,30 +440,36 @@ function connect(url){
   S.ws.onerror=()=>setStatus('off');
 }
 function wsSend(d){if(S.ws&&S.ws.readyState===1)S.ws.send(JSON.stringify(d));}
-function send(d){wsSend(d);}
 function startPing(){clearInterval(window._pi);window._pi=setInterval(()=>wsSend({type:'ping'}),25000);}
 
+// ══════ MESSAGE HANDLER ══════
 async function onMsg(m){
-  if(m.type==='joined'){document.getElementById('members-btn').textContent='👥 '+m.count;}
-  else if(m.type==='members'){document.getElementById('members-btn').textContent='👥 '+m.count;}
-  else if(m.type==='history'){
-    clearMsgs();fileBuffers.clear();
-    if(!m.messages.length) appendSys('🔐 هذه المحادثة مشفرة · ابدأ المحادثة');
-    for(const x of m.messages){
-      if(x.type==='msg') await renderMsg(x);
-      else if(x.type==='file') await onFileChunk(x);
+  if(m.type==='joined'){
+    document.getElementById('members-btn').textContent='👥 '+m.count;
+  }else if(m.type==='members'){
+    document.getElementById('members-btn').textContent='👥 '+m.count;
+  }else if(m.type==='history'){
+    clearMsgs();FB.clear();
+    if(!m.messages.length)appendSys('🔐 هذه المحادثة مشفرة · ابدأ المحادثة');
+    // Group file chunks by fileId first, then process in order
+    const msgList=m.messages;
+    for(const x of msgList){
+      if(x.type==='msg')await renderMsg(x);
+      else if(x.type==='file')await processChunk(x);
     }
     scrollBot();
+  }else if(m.type==='msg'){
+    await renderMsg(m);scrollBot();clearTypU(m.sender);
+  }else if(m.type==='file'){
+    await processChunk(m);scrollBot();
+  }else if(m.type==='sys'){
+    appendSys(m.text);scrollBot();
+  }else if(m.type==='typing'&&m.username!==S.name){
+    showTyp(m.username,m.typing);
   }
-  else if(m.type==='msg'){await renderMsg(m);scrollBot();clearTypU(m.sender);}
-  else if(m.type==='file'){await onFileChunk(m);scrollBot();}
-  else if(m.type==='sys'){appendSys(m.text);scrollBot();}
-  else if(m.type==='typing'&&m.username!==S.name){showTyp(m.username,m.typing);}
 }
 
-// ══════════════════════════════════════
-// RENDER TEXT MSG
-// ══════════════════════════════════════
+// ══════ TEXT MESSAGE ══════
 async function renderMsg(m){
   if(m.type==='sys'){appendSys(m.text);return;}
   const mine=m.sender===S.name;
@@ -466,54 +477,55 @@ async function renderMsg(m){
   const el=document.getElementById('msgs');
   const row=document.createElement('div');
   row.className='msg-row'+(mine?' mine':'');
-  row.innerHTML=`<div class="m-av">${emojiFor(m.sender)}</div><div class="bw">${!mine?`<div class="b-sender">${esc(m.sender)}</div>`:''}<div class="bubble ${mine?'mine':'theirs'}">${esc(text).replace(/\n/g,'<br>')}<div class="b-foot"><span class="b-time">${m.time||''}</span><span class="b-enc ${mine?'m':''}">🔒 E2E</span></div></div></div>`;
+  row.innerHTML=
+    '<div class="m-av">'+emojiFor(m.sender)+'</div>'+
+    '<div class="bw">'+
+      (!mine?'<div class="b-sender">'+esc(m.sender)+'</div>':'')+
+      '<div class="bubble '+(mine?'mine':'theirs')+'">'+
+        esc(text).replace(/\n/g,'<br>')+
+        '<div class="b-foot">'+
+          '<span class="b-time">'+(m.time||'')+'</span>'+
+          '<span class="b-enc '+(mine?'m':'')+'">🔒 E2E</span>'+
+        '</div>'+
+      '</div>'+
+    '</div>';
   el.appendChild(row);
 }
 function appendSys(t){const d=document.createElement('div');d.className='sys-msg';d.textContent=t;document.getElementById('msgs').appendChild(d);}
 function clearMsgs(){document.getElementById('msgs').innerHTML='';}
 function scrollBot(){const e=document.getElementById('msgs');requestAnimationFrame(()=>e.scrollTop=e.scrollHeight);}
 
-// ══════════════════════════════════════
-// SEND TEXT
-// ══════════════════════════════════════
+// ══════ SEND TEXT ══════
 async function sendMsg(){
   const inp=document.getElementById('msg-inp');const text=inp.value.trim();
   if(!text||!S.currentRoom||!S.ws||S.ws.readyState!==1)return;
   inp.value='';autoResize(inp);sendTyping(false);
   const enc=await encText(text,S.currentRoom);
-  const now=new Date();const time=now.getHours().toString().padStart(2,'0')+':'+now.getMinutes().toString().padStart(2,'0');
-  wsSend({type:'msg',enc,time,ts:now.getTime()});
+  const now=new Date();
+  wsSend({type:'msg',enc,time:now.getHours().toString().padStart(2,'0')+':'+now.getMinutes().toString().padStart(2,'0'),ts:now.getTime()});
 }
 function handleKey(e){if(e.key==='Enter'&&!e.shiftKey){e.preventDefault();sendMsg();}}
 function autoResize(el){el.style.height='auto';el.style.height=Math.min(el.scrollHeight,120)+'px';}
 
-// ══════════════════════════════════════
-// FILE SELECT + DRAG & DROP
-// ══════════════════════════════════════
+// ══════ FILE SELECT + DRAG DROP ══════
 async function onFileSelect(e){const f=e.target.files[0];if(!f)return;e.target.value='';await sendEncFile(f);}
-
-document.addEventListener('dragenter',e=>{if([...e.dataTransfer.types].includes('Files')&&S.currentRoom) document.getElementById('drop-ov').classList.add('show');});
-document.addEventListener('dragleave',e=>{if(!e.relatedTarget||e.relatedTarget===document.documentElement) document.getElementById('drop-ov').classList.remove('show');});
+document.addEventListener('dragenter',e=>{if([...e.dataTransfer.types].includes('Files')&&S.currentRoom)document.getElementById('drop-ov').classList.add('show');});
+document.addEventListener('dragleave',e=>{if(!e.relatedTarget||e.relatedTarget===document.documentElement)document.getElementById('drop-ov').classList.remove('show');});
 document.addEventListener('dragover',e=>e.preventDefault());
 document.addEventListener('drop',async e=>{
-  e.preventDefault();
-  document.getElementById('drop-ov').classList.remove('show');
+  e.preventDefault();document.getElementById('drop-ov').classList.remove('show');
   const f=e.dataTransfer.files[0];
-  if(f&&S.currentRoom) await sendEncFile(f);
-  else if(f) toast('⚠ انضم لغرفة أولاً');
+  if(f&&S.currentRoom)await sendEncFile(f);
+  else if(f)toast('⚠ انضم لغرفة أولاً');
 });
 
-// ══════════════════════════════════════
-// TYPING
-// ══════════════════════════════════════
+// ══════ TYPING ══════
 const typU=new Set();
 function sendTyping(on){clearTimeout(S.typingTimer);wsSend({type:'typing',typing:on});if(on)S.typingTimer=setTimeout(()=>wsSend({type:'typing',typing:false}),2500);}
-function showTyp(u,on){on?typU.add(u):typU.delete(u);const el=document.getElementById('typing-area');if(!typU.size){el.innerHTML='';return;}el.innerHTML=`<div class="typing-row"><span>${[...typU].join('، ')} يكتب</span><div class="td"><span></span><span></span><span></span></div></div>`;}
+function showTyp(u,on){on?typU.add(u):typU.delete(u);const el=document.getElementById('typing-area');if(!typU.size){el.innerHTML='';return;}el.innerHTML='<div class="typing-row"><span>'+[...typU].join('، ')+' يكتب</span><div class="td"><span></span><span></span><span></span></div></div>';}
 function clearTypU(u){typU.delete(u);showTyp(u,false);}
 
-// ══════════════════════════════════════
-// ROOMS
-// ══════════════════════════════════════
+// ══════ ROOMS ══════
 async function joinRoom(id){
   if(!S.keys[id]){const{key,fp}=await deriveKey(S.pass,id);S.keys[id]=key;S.fps[id]=fp;}
   S.currentRoom=id;wsSend({type:'join',room:id,username:S.name});
@@ -525,15 +537,19 @@ async function joinRoom(id){
   document.getElementById('ch-sub').textContent='// '+id+' · مشفرة';
   document.getElementById('fp-val').textContent=S.fps[id]||'—';
   document.getElementById('my-fp-lbl').textContent='بصمة: '+(S.fps[id]||'—');
-  clearMsgs();fileBuffers.clear();renderRooms();
+  clearMsgs();FB.clear();renderRooms();
 }
 function renderRooms(){
   const el=document.getElementById('rooms-list');el.innerHTML='';
-  for(const[id,r]of Object.entries(S.rooms)){const d=document.createElement('div');d.className='room-item'+(S.currentRoom===id?' active':'');d.innerHTML=`<div class="r-av">${r.icon}<span class="od"></span></div><div class="r-info"><div class="r-name">${esc(r.name)}</div><div class="r-meta">// ${esc(id)}</div></div><span style="font-size:10px;color:var(--acc2)">🔒</span>`;d.onclick=()=>joinRoom(id);el.appendChild(d);}
+  for(const[id,r]of Object.entries(S.rooms)){
+    const d=document.createElement('div');d.className='room-item'+(S.currentRoom===id?' active':'');
+    d.innerHTML='<div class="r-av">'+r.icon+'<span class="od"></span></div><div class="r-info"><div class="r-name">'+esc(r.name)+'</div><div class="r-meta">// '+esc(id)+'</div></div><span style="font-size:10px;color:var(--acc2)">🔒</span>';
+    d.onclick=()=>joinRoom(id);el.appendChild(d);
+  }
 }
 function openNewRoom(){
   document.getElementById('m-title').textContent='🏠 غرفة جديدة';
-  document.getElementById('m-body').innerHTML=`<label class="m-lbl">اسم الغرفة</label><input class="m-inp" id="nr-n" placeholder="مجموعة العمل" dir="auto" maxlength="30"><label class="m-lbl">رمز الغرفة</label><input class="m-inp" id="nr-c" value="ROOM-${Math.random().toString(36).slice(2,8).toUpperCase()}" dir="ltr" style="font-family:var(--mono)"><div class="m-row"><button class="m-cancel" onclick="closeModal()">إلغاء</button><button class="m-ok" onclick="createRoom()">انضمام</button></div>`;
+  document.getElementById('m-body').innerHTML='<label class="m-lbl">اسم الغرفة</label><input class="m-inp" id="nr-n" placeholder="مجموعة العمل" dir="auto" maxlength="30"><label class="m-lbl">رمز الغرفة</label><input class="m-inp" id="nr-c" value="ROOM-'+Math.random().toString(36).slice(2,8).toUpperCase()+'" dir="ltr" style="font-family:var(--mono)"><div class="m-row"><button class="m-cancel" onclick="closeModal()">إلغاء</button><button class="m-ok" onclick="createRoom()">انضمام</button></div>';
   openModal();
 }
 async function createRoom(){
@@ -544,9 +560,7 @@ async function createRoom(){
   closeModal();renderRooms();joinRoom(code);
 }
 
-// ══════════════════════════════════════
-// SETUP / DISCONNECT
-// ══════════════════════════════════════
+// ══════ SETUP ══════
 async function joinChat(){
   const name=document.getElementById('inp-name').value.trim();
   const room=document.getElementById('inp-room').value.trim().toUpperCase();
@@ -567,23 +581,25 @@ function doDisconnect(){
   if(!confirm('قطع الاتصال؟'))return;
   clearInterval(window._pi);if(S.ws)S.ws.close();
   Object.assign(S,{ws:null,name:'',pass:'',currentRoom:null,rooms:{},keys:{},fps:{}});
-  fileBuffers.clear();
+  FB.clear();
   document.getElementById('chat-screen').style.display='none';
   document.getElementById('setup-screen').style.display='';
   document.getElementById('join-btn').disabled=false;
   document.getElementById('join-btn').textContent='دخول آمن ←';
 }
 
-// ══════════════════════════════════════
-// UI
-// ══════════════════════════════════════
+// ══════ UI ══════
 function setStatus(s){const d=document.getElementById('conn-dot');const l=document.getElementById('conn-lbl');d.className='dot '+s;l.textContent=s==='on'?'متصل':s==='conn'?'جاري الاتصال...':'غير متصل';l.style.color=s==='on'?'var(--acc2)':s==='conn'?'#ffaa00':'var(--danger)';}
 function copyRoom(){if(!S.currentRoom)return;try{navigator.clipboard.writeText(S.currentRoom);toast('✅ تم نسخ رمز الغرفة');}catch{prompt('رمز الغرفة:',S.currentRoom);}}
-function clearChat(){if(!confirm('مسح الرسائل من الشاشة؟'))return;clearMsgs();fileBuffers.clear();appendSys('🔐 تم المسح');}
+function clearChat(){if(!confirm('مسح الرسائل من الشاشة؟'))return;clearMsgs();FB.clear();appendSys('🔐 تم المسح');}
 function swPanel(n,btn){document.querySelectorAll('.nav-tab').forEach(t=>t.classList.remove('active'));btn.classList.add('active');document.getElementById('panel-rooms').style.display=n==='rooms'?'':'none';document.getElementById('panel-info').style.display=n==='info'?'':'none';}
 function openModal(){document.getElementById('modal').style.display='flex';}
 function closeModal(){document.getElementById('modal').style.display='none';}
-function openSettings(){document.getElementById('m-title').textContent='⚙ الإعدادات';document.getElementById('m-body').innerHTML=`<label class="m-lbl">تغيير الاسم</label><input class="m-inp" id="s-name" value="${esc(S.name)}" dir="auto" maxlength="24"><label class="m-lbl">بصمة المفتاح</label><div style="font-size:11px;font-family:var(--mono);color:var(--acc2);background:var(--s3);padding:9px 12px;border-radius:8px;margin-bottom:14px;word-break:break-all">${S.fps[S.currentRoom]||'—'}</div><div class="m-row"><button class="m-cancel" onclick="closeModal()">إغلاق</button><button class="m-ok" onclick="S.name=document.getElementById('s-name').value.trim()||S.name,document.getElementById('my-name-lbl').textContent=S.name,document.getElementById('my-av').textContent=emojiFor(S.name),closeModal()">حفظ</button></div>`;openModal();}
+function openSettings(){
+  document.getElementById('m-title').textContent='⚙ الإعدادات';
+  document.getElementById('m-body').innerHTML='<label class="m-lbl">تغيير الاسم</label><input class="m-inp" id="s-name" value="'+esc(S.name)+'" dir="auto" maxlength="24"><label class="m-lbl">بصمة المفتاح</label><div style="font-size:11px;font-family:var(--mono);color:var(--acc2);background:var(--s3);padding:9px 12px;border-radius:8px;margin-bottom:14px;word-break:break-all">'+(S.fps[S.currentRoom]||'—')+'</div><div class="m-row"><button class="m-cancel" onclick="closeModal()">إغلاق</button><button class="m-ok" onclick="S.name=document.getElementById(\'s-name\').value.trim()||S.name,document.getElementById(\'my-name-lbl\').textContent=S.name,document.getElementById(\'my-av\').textContent=emojiFor(S.name),closeModal()">حفظ</button></div>';
+  openModal();
+}
 function toast(msg){const t=document.createElement('div');t.className='toast';t.textContent=msg;document.body.appendChild(t);setTimeout(()=>t.remove(),2800);}
 function esc(s){return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');}
 function emojiFor(name){const e=['👤','🦊','🐺','🦁','🐯','🦅','🐉','👾','🤖','🦋','🌟','⚡','🎯','🔮'];let h=0;for(const c of String(name))h=(h*31+c.charCodeAt(0))&0xff;return e[h%e.length];}
