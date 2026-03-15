@@ -1,6 +1,10 @@
 'use strict';
 const http=require('http'),crypto=require('crypto'),fs=require('fs'),path=require('path');
+
+// Railway يضع المنفذ في PORT تلقائياً — 0.0.0.0 ضروري للعمل على Railway
 const PORT=Number(process.env.PORT||3001);
+const HOST='0.0.0.0';
+
 const rooms=new Map(),clients=new Map();
 const WS_MAGIC='258EAFA5-E914-47DA-95CA-C5AB0DC85B11';
 
@@ -8,9 +12,16 @@ function wsHandshake(req,socket){
   const key=req.headers['sec-websocket-key'];
   if(!key){socket.destroy();return false;}
   const accept=crypto.createHash('sha1').update(key+WS_MAGIC).digest('base64');
-  socket.write('HTTP/1.1 101 Switching Protocols\r\nUpgrade: websocket\r\nConnection: Upgrade\r\nSec-WebSocket-Accept: '+accept+'\r\n\r\n');
+  socket.write(
+    'HTTP/1.1 101 Switching Protocols\r\n'+
+    'Upgrade: websocket\r\n'+
+    'Connection: Upgrade\r\n'+
+    'Sec-WebSocket-Accept: '+accept+'\r\n'+
+    'Access-Control-Allow-Origin: *\r\n\r\n'
+  );
   return true;
 }
+
 function buildFrame(payload){
   const data=Buffer.isBuffer(payload)?payload:Buffer.from(payload,'utf8');
   const len=data.length;let hdr;
@@ -19,6 +30,7 @@ function buildFrame(payload){
   else{hdr=Buffer.alloc(10);hdr[0]=0x81;hdr[1]=127;hdr.writeBigUInt64BE(BigInt(len),2);}
   return Buffer.concat([hdr,data]);
 }
+
 function parseFrames(buf){
   const frames=[];let off=0;
   while(off+2<=buf.length){
@@ -35,6 +47,7 @@ function parseFrames(buf){
   }
   return{frames,rest:buf.slice(off)};
 }
+
 function sendJSON(socket,obj){
   try{if(!socket.destroyed)socket.write(buildFrame(JSON.stringify(obj)));}catch(_){}
 }
@@ -114,19 +127,38 @@ function handleMessage(socket,raw){
   }
 }
 
+// ── HTTP Server ──
 const server=http.createServer((req,res)=>{
   res.setHeader('Access-Control-Allow-Origin','*');
+  res.setHeader('Access-Control-Allow-Methods','GET,OPTIONS');
+  res.setHeader('Access-Control-Allow-Headers','Content-Type');
+
+  if(req.method==='OPTIONS'){res.writeHead(204);return res.end();}
+
   if(req.url==='/health'){
     res.writeHead(200,{'Content-Type':'application/json'});
-    return res.end(JSON.stringify({ok:true,rooms:rooms.size,clients:clients.size,uptime:Math.floor(process.uptime())}));
+    return res.end(JSON.stringify({
+      ok:true,
+      rooms:rooms.size,
+      clients:clients.size,
+      uptime:Math.floor(process.uptime()),
+      port:PORT,
+      env:process.env.NODE_ENV||'development'
+    }));
   }
+
+  // serve index.html for all routes
   const file=path.join(__dirname,'index.html');
   if(fs.existsSync(file)){
     res.writeHead(200,{'Content-Type':'text/html; charset=utf-8'});
     res.end(fs.readFileSync(file));
-  }else{res.writeHead(404);res.end('index.html not found');}
+  }else{
+    res.writeHead(200,{'Content-Type':'text/plain'});
+    res.end('VAULT CIPHER SERVER RUNNING — port '+PORT);
+  }
 });
 
+// ── WebSocket Upgrade ──
 server.on('upgrade',(req,socket)=>{
   if(req.headers.upgrade?.toLowerCase()!=='websocket'){socket.destroy();return;}
   if(!wsHandshake(req,socket))return;
@@ -152,8 +184,22 @@ server.on('upgrade',(req,socket)=>{
   socket.on('error',()=>clients.delete(socket));
 });
 
-server.listen(PORT,()=>{
-  console.log('\n\x1b[35m  🔐  VAULT CIPHER\x1b[0m');
-  console.log('  \x1b[32m✓\x1b[0m  http://localhost:'+PORT);
-  console.log('  \x1b[32m✓\x1b[0m  ws://localhost:'+PORT+'\n');
+// ── Start — HOST=0.0.0.0 مطلوب لـ Railway ──
+server.listen(PORT,HOST,()=>{
+  console.log('');
+  console.log('🔐  VAULT CIPHER SERVER');
+  console.log('✓   PORT  : '+PORT);
+  console.log('✓   HOST  : '+HOST);
+  console.log('✓   ENV   : '+(process.env.NODE_ENV||'development'));
+  console.log('✓   http://'+HOST+':'+PORT);
+  console.log('');
+});
+
+// graceful shutdown
+process.on('SIGTERM',()=>{
+  console.log('SIGTERM received, shutting down...');
+  server.close(()=>process.exit(0));
+});
+process.on('SIGINT',()=>{
+  server.close(()=>process.exit(0));
 });
